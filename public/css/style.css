@@ -1,0 +1,164 @@
+/* Ensure all cards have the same height */
+.card {
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    height: 100%; /* Make sure the card fills the available space */
+}
+
+/* Ensure product images have a consistent size */
+.card-img-top {
+    max-height: 16rem; /* Set maximum height for product images */
+    object-fit: cover; /* Crop images if they exceed the defined size */
+}
+
+/* Ensure the card body takes up remaining space and maintains consistency */
+.card-body {
+    flex-grow: 1; /* Allow the body to expand to fill space */
+    display: flex; /* Enable flexible layout */
+    flex-direction: column; /* Stack content vertically */
+}
+
+/* Position the button at the bottom of the card */
+.card-body .btn {
+    margin-top: auto; /* Push the button down to the bottom */
+}
+
+/* Set a limit on the description height and enable scrolling if needed */
+.card-body .card-text {
+    max-height: 6rem; /* Limit description height */
+    overflow-y: auto; /* Enable vertical scrolling when necessary */
+    text-overflow: ellipsis; /* Add "..." if text overflows */
+    margin-bottom: 1rem; /* Add space below the description */
+}
+
+/* Add spacing between cards */
+.col-md-4 {
+    margin-bottom: 1rem; /* Vertical spacing between cards */
+}
+
+/* Align button and price at the bottom of the card */
+.card-body .btn, .card-body .h4 {
+    /* No styles applied, but keeping placeholder in case needed */
+}
+
+/* Style for the product image container */
+.img-product {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Full width */
+    height: 20rem; /* Fixed height for consistency */
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Hide any overflowing parts of the image */
+    text-align: center;
+    position: relative;
+}
+
+/* Ensure the image inside the container fits well */
+.img-product .img {
+    width: 20rem; /* Set a fixed width for the image */
+    height: 20rem; /* Set a fixed height for the image */
+    object-fit: cover; /* Crop image to fill container without distortion */
+    object-position: center; /* Center the image */
+}
+
+/* Ensure the full page takes up all available height */
+html, body {
+    height: 100%;
+    margin: 0; /* Remove default margin */
+}
+
+/* Make the body a flex container to push content down */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Allow main content to stretch while keeping the footer at the bottom */
+.container {
+    flex-grow: 1;
+}
+
+/* Style the footer */
+footer {
+    background: #333; /* Dark background */
+    color: white; /* White text */
+    text-align: center;
+    padding: 20px;
+    margin-top: auto; /* Keeps the footer at the bottom of the page */
+}
+
+/* Remove default list styling and align items horizontally in the footer */
+footer ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center; /* Center the items */
+}
+
+/* Add spacing between footer links */
+footer ul li {
+    margin: 0 15px; /* Horizontal spacing */
+}
+
+/* Style footer links */
+footer ul li a {
+    color: white; /* White text */
+    text-decoration: none; /* Remove underline */
+}
+
+/* Style for aligning the title and price of the product */
+.card-title-prize {
+    display: flex; /* Use Flexbox */
+    justify-content: space-between; /* Space out elements evenly */
+    align-items: center; /* Align items vertically */
+    height: 3rem; /* Fixed height */
+    width: 100%; /* Full width */
+}
+
+/* Ensure long titles do not break layout */
+.card-title {
+    margin: 0;
+    text-overflow: ellipsis; /* Add "..." if text is too long */
+    white-space: nowrap; /* Prevent line breaks */
+    overflow: hidden; /* Hide overflowing text */
+}
+
+/* Ensure the price is aligned properly */
+.card-price {
+    margin: 0;
+    padding-left: 10px; /* Add space between title and price */
+    white-space: nowrap; /* Prevent line breaks */
+    text-align: right; /* Align price to the right */
+    line-height: 1; /* Consistent line height */
+}
+
+/* Set base font size for the body */
+body {
+    font-size: 16px;
+}
+
+/* Adjust font size for smaller screens */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px; /* Reduce font size for better readability */
+    }
+
+    h1, h2 {
+        font-size: 1.2rem; /* Reduce heading sizes */
+    }
+}
+
+/* Ensure table cells do not exceed a maximum width */
+th, td {
+    max-width: 150px;
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Show "..." for overflowed content */
+}
+
+.nav-link{
+    font-size: 1.2rem;
+    font-weight: 600;
+}

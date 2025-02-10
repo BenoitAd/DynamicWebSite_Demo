@@ -1,0 +1,20 @@
+# temp files
+/tmp
+/temp
+*.tmp
+*.swp
+
+# IDE PHPStorm conf
+.idea/
+
+# Docker files
+docker-compose.override.yml
+docker-compose.yml
+Dockerfile
+
+# Env files
+.env
+.env.local
+.env.*.local
+docker-entrypoint-initdb.d/
+
