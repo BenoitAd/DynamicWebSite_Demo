@@ -1,0 +1,30 @@
+version: '3.9'  # Use Compose file version 3.9
+
+services:
+  web:
+    build: .  # Build the Docker image using the Dockerfile in the current directory
+    container_name: dynamic_website_store  # Name of the web container
+    ports:
+      - "8080:80"  # Map port 80 in the container (Apache) to port 8080 on the host
+    volumes:
+      - .:/var/www/html  # Mount the entire project directory to /var/www/html inside the container
+    depends_on:
+      - db  # Ensure the database service starts before the web service
+
+  db:
+    image: mysql:8.0  # Use the official MySQL 8.0 image
+    container_name: dynamicwebsite_db  # Name of the database container
+    environment:
+      MYSQL_ROOT_PASSWORD: example  # Root password for MySQL
+      MYSQL_DATABASE: ecommerce_demo  # Create this database on container initialization
+      MYSQL_USER: user  # Create a MySQL user
+      MYSQL_PASSWORD: password  # Set the password for the MySQL user
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d  # Run initialization SQL scripts found in the local "./database" folder (runs on first container start)
+      # Uncomment the following line to persist MySQL data between container restarts:
+      # - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"  # Expose port 3306 (MySQL) to the host
+
+volumes:
+  db_data:  # Named volume for persisting MySQL data (if used)
