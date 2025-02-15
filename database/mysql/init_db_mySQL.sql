@@ -1,11 +1,13 @@
--- Create the database
+-- Create the database if it doesn't already exist
 CREATE DATABASE IF NOT EXISTS ecommerce_demo;
+
+-- Use the 'ecommerce_demo' database
 USE ecommerce_demo;
 
 -- Create the 'products' table to store product details
 CREATE TABLE IF NOT EXISTS products (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+                                        id INT AUTO_INCREMENT PRIMARY KEY,
+                                        name VARCHAR(255) NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
     description TEXT,
     image_url VARCHAR(255)

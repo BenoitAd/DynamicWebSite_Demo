@@ -3,7 +3,13 @@ $config = include __DIR__ . '/../config/config.php';
 
 try {
     // Détection automatique du driver (MySQL ou PostgreSQL)
-    $dsn = "{$config['DB_DRIVER']}:host={$config['DB_HOST']};port={$config['DB_PORT']};dbname={$config['DB_NAME']};charset=utf8";
+    if ($config['DB_DRIVER'] === 'pgsql') {
+        // PostgreSQL n'a pas besoin de charset dans DSN
+        $dsn = "{$config['DB_DRIVER']}:host={$config['DB_HOST']};port={$config['DB_PORT']};dbname={$config['DB_NAME']}";
+    } else {
+        // Pour MySQL, ajout du charset pour une meilleure gestion des caractères spéciaux
+        $dsn = "{$config['DB_DRIVER']}:host={$config['DB_HOST']};port={$config['DB_PORT']};dbname={$config['DB_NAME']};charset=utf8mb4";
+    }
 
     // Options PDO
     $options = [
@@ -12,15 +18,12 @@ try {
         PDO::ATTR_EMULATE_PREPARES => false
     ];
 
-    // Supprime `charset=utf8` pour PostgreSQL car il ne l'utilise pas dans DSN
-    if ($config['DB_DRIVER'] === 'pgsql') {
-        $dsn = "{$config['DB_DRIVER']}:host={$config['DB_HOST']};port={$config['DB_PORT']};dbname={$config['DB_NAME']}";
-    }
-
     // Création de l'instance PDO
     $pdo = new PDO($dsn, $config['DB_USER'], $config['DB_PASS'], $options);
 
     return $pdo;
 } catch (PDOException $e) {
-    die("Connection to the database failed: " . $e->getMessage());
+    // Log the error and display a generic message
+    error_log($e->getMessage(), 3, '/var/log/php-db-errors.log');  // You can adjust the path
+    die("Connection to the database failed. Please try again later.");
 }

@@ -11,9 +11,10 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
 # Enable Apache modules you might need (like rewrite)
 RUN a2enmod rewrite
 
-# Install PDO, PDO MySQL, and PDO PostgreSQL extensions
+# Install PDO, PDO MySQL, and PDO PostgreSQL extensions, and dependencies
 RUN apt-get update && apt-get install -y libpq-dev \
-    && docker-php-ext-install pdo pdo_mysql pdo_pgsql
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
 WORKDIR /var/www/html
@@ -24,8 +25,15 @@ COPY . /var/www/html/
 # Set proper permissions so that Apache (running as www-data) can access the files
 RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
 
+# Copy the entrypoint script and make it executable
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 # Expose port 80
 EXPOSE 80
+
+# Set the entrypoint for the container to run the initialization script and then Apache
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 # Start Apache in the foreground
 CMD ["apache2-foreground"]
