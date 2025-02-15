@@ -1,11 +1,15 @@
+-- Create the database
+CREATE DATABASE IF NOT EXISTS ecommerce_demo;
+USE ecommerce_demo;
+
 -- Create the 'products' table to store product details
-CREATE TABLE products (
-                          id SERIAL PRIMARY KEY,         -- Unique product ID (auto-incremented)
-                          name VARCHAR(255) NOT NULL,    -- Product name (required)
-                          price DECIMAL(10, 2) NOT NULL, -- Product price with two decimal places
-                          description TEXT,              -- Optional product description
-                          image_url VARCHAR(255)         -- URL for the product image
-);
+CREATE TABLE IF NOT EXISTS products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    description TEXT,
+    image_url VARCHAR(255)
+    );
 
 -- Insert sample products into the 'products' table
 INSERT INTO products (name, price, description, image_url)

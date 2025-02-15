@@ -1,21 +1,26 @@
 <?php
-$db_url = getenv('DATABASE_URL');
+$db_url = getenv('DATABASE_URL'); // Render fournit cette variable pour PostgreSQL
+$use_postgres = !empty($db_url);  // Si DATABASE_URL existe, alors on est sur Render
 
-if ($db_url) {
+if ($use_postgres) {
+    // PostgreSQL (Render)
     $db_parts = parse_url($db_url);
     return [
+        'DB_DRIVER' => 'pgsql',
         'DB_HOST' => $db_parts['host'],
         'DB_NAME' => ltrim($db_parts['path'], '/'),
         'DB_USER' => $db_parts['user'],
         'DB_PASS' => $db_parts['pass'],
+        'DB_PORT' => $db_parts['port'] ?? 5432,
     ];
 } else {
+    // MySQL (Local Docker)
     return [
-        'DB_HOST' => getenv('DB_HOST') ?: 'localhost',
+        'DB_DRIVER' => 'mysql',
+        'DB_HOST' => getenv('DB_HOST') ?: 'db', // "db" est le nom du service MySQL en Docker
         'DB_NAME' => getenv('DB_NAME') ?: 'ecommerce_demo',
         'DB_USER' => getenv('DB_USER') ?: 'user',
         'DB_PASS' => getenv('DB_PASS') ?: 'password',
+        'DB_PORT' => 3306,
     ];
 }
-
-

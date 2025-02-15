@@ -8,6 +8,10 @@ $pdo = include __DIR__ . '/../includes/db_connection.php'; // database config
 // get all the products from the database table
 if (isset($pdo)) {
     $query = $pdo->query('SELECT * FROM products');
+    // Récupère tous les produits dans un tableau
+    $products = $query->fetchAll();
+    // Mélange le tableau de produits
+    shuffle($products);
 }
 
 include '../includes/header.php';
@@ -22,7 +26,7 @@ include '../includes/header.php';
 <body>
 <div class="container mt-5">
     <div class="row">
-        <?php while ($product = $query->fetch()): ?>
+        <?php foreach ($products as $product): ?>
             <div class="col-md-4">
                 <div class="card mb-3">
                     <img src="images/<?php echo $product['image_url']; ?>.png" class="card-img-top" alt="Product Image">
@@ -36,8 +40,9 @@ include '../includes/header.php';
                     </div>
                 </div>
             </div>
-        <?php endwhile; ?>
+        <?php endforeach; ?>
     </div>
 </div>
 <?php include '../includes/footer.php'; ?>
 </body>
+</html>
