@@ -33,11 +33,6 @@ docker-compose up --build
 http://localhost:8080
 ```
 
-## 🌍 Live Demo
-The project is hosted on **Render** and can be accessed at:
-
-🔗 **[Live Demo](https://dynamicwebsite-demo.onrender.com)**
-
 ## 📜 License
 This project is open-source and available under the [MIT License](LICENSE).
 
