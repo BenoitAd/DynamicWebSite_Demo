@@ -11,8 +11,9 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
 # Enable Apache modules you might need (like rewrite)
 RUN a2enmod rewrite
 
-# Install PDO and PDO MySQL extensions
-RUN docker-php-ext-install pdo pdo_mysql
+# Install PDO, PDO MySQL, and PDO PostgreSQL extensions
+RUN apt-get update && apt-get install -y libpq-dev \
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql
 
 # Set the working directory
 WORKDIR /var/www/html

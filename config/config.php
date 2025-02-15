@@ -11,7 +11,7 @@ if ($use_postgres) {
         'DB_NAME' => ltrim($db_parts['path'], '/'),
         'DB_USER' => $db_parts['user'],
         'DB_PASS' => $db_parts['pass'],
-        'DB_PORT' => $db_parts['port'] ?? 5432,
+        'DB_PORT' => isset($db_parts['port']) ? $db_parts['port'] : 5432,
     ];
 } else {
     // MySQL (Local Docker)
