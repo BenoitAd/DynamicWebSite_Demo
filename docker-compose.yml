@@ -4,8 +4,6 @@ services:
   web:
     build: .
     container_name: dynamic_website_store
-    ports:
-      - "8080:80"
     volumes:
       - .:/var/www/html
     depends_on:
@@ -17,19 +15,28 @@ services:
       DB_USER: user
       DB_PASS: password
       DB_PORT: 3306  # Port MySQL ou PostgreSQL selon l'environnement
+    networks:
+      - web  # Ajout au r  seau de Traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dynamicwebsite.rule=Host(`benoit-auger-dubois.com`) && PathPrefix(`/dynamic_website_demo`)"
+      - "traefik.http.routers.dynamicwebsite.entrypoints=websecure"
+      - "traefik.http.routers.dynamicwebsite.tls.certresolver=myresolver"
+      - "traefik.http.routers.dynamicwebsite.middlewares=dynamicwebsite-stripprefix"
+      - "traefik.http.middlewares.dynamicwebsite-stripprefix.stripprefix.prefixes=/dynamic_website_demo"
 
   db:
     image: mysql:8.0
     container_name: dynamicwebsite_db
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: example
+      MYSQL_ROOT_PASSWORD: ${DB_PWD}
       MYSQL_DATABASE: ecommerce_demo
       MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MYSQL_PASSWORD: ${DB_PWD}
     volumes:
       - db_data:/var/lib/mysql
-      - ./database/mysql:/docker-entrypoint-initdb.d  # Utilisation du répertoire MySQL pour init DB
+      - ./database/mysql:/docker-entrypoint-initdb.d  # Utilisation du r  pertoire MySQL pour init DB
     ports:
       - "3306:3306"
     healthcheck:
@@ -38,6 +45,3 @@ services:
       retries: 5
       start_period: 30s
       timeout: 5s
-
-volumes:
-  db_data:

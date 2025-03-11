@@ -1,6 +1,7 @@
 <?php
 $db_url = getenv('DATABASE_URL'); // Render fournit cette variable pour PostgreSQL
 $use_postgres = !empty($db_url);  // Si DATABASE_URL existe, alors on est sur Render
+const BASE_URL = '/dynamic_website_demo';
 
 if ($use_postgres) {
     // PostgreSQL (Render)

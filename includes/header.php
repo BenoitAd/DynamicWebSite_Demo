@@ -1,4 +1,6 @@
 <?php
+require_once './config/config.php';  // Inclure le fichier de configuration
+
 if (session_status() == PHP_SESSION_NONE) {
     session_start(); // Start the session
 }
@@ -16,14 +18,14 @@ if (session_status() == PHP_SESSION_NONE) {
     <!-- Adding Font Awesome for Cart Icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Adding the app custom css -->
-    <link rel="stylesheet" href="<?php echo $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/css/style.css'; ?> <?php echo time(); ?>">
+    <link rel="stylesheet" href="<?php echo $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . BASE_URL . '/css/style.css'; ?> <?php echo time(); ?>">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="<?php echo $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/'; ?>">
-        <img src="<?php echo $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/images/logo.png'; ?>"
+    <a class="navbar-brand" href="<?php echo BASE_URL . '/'; ?>">
+        <img src="<?php echo $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . BASE_URL . '/images/logo.png'; ?>"
              width="30" height="30" class="d-inline-block align-top" alt="Logo">
         My Dynamic Store
     </a>
@@ -31,7 +33,7 @@ if (session_status() == PHP_SESSION_NONE) {
     <!-- Cart Link (Right Side of the Navbar) -->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-            <a class="nav-link mr-2" href="<?php echo $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/pages/cart.php'; ?>"
+            <a class="nav-link mr-2" href="<?php echo $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . BASE_URL . '/pages/cart.php'; ?>"
                 <i class="fas fa-shopping-cart"></i>
                 <?php
                 // Display number of items in the cart if it exists

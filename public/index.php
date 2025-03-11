@@ -1,4 +1,6 @@
 <?php
+require_once './config/config.php';  // Inclure le fichier de configuration
+
 if (session_status() == PHP_SESSION_NONE) {
     session_start(); // Start the session if it hasn't been started yet
 }
@@ -20,7 +22,7 @@ include '../includes/header.php';
 <head>
     <meta charset="UTF-8">
     <title>Store Home Page</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../public/css/style.css">
 </head>
 
 <body>
@@ -29,7 +31,7 @@ include '../includes/header.php';
         <?php foreach ($products as $product): ?>
             <div class="col-md-4">
                 <div class="card mb-3">
-                    <img src="images/<?php echo $product['image_url']; ?>.png" class="card-img-top" alt="Product Image">
+                    <img src="<?php echo BASE_URL . '/images/' . $product['image_url']; ?>.png" class="card-img-top" alt="Product Image">
                     <div class="card-body">
                         <div class="card-title-prize">
                             <h5 class="card-title"><?php echo $product['name']; ?></h5>
