@@ -1,5 +1,5 @@
 <?php
-require_once './config/config.php';  // Inclure le fichier de configuration
+require_once '/var/www/html/config/config.php'; // Inclure le fichier de configuration
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start(); // Start the session
