@@ -33,6 +33,9 @@ docker-compose up --build
 http://localhost:8080
 ```
 
+## Live Demo
+A live demo is available on my VPS server : https://dynamicstoredemo.benoit-auger-dubois.com/
+
 ## 📜 License
 This project is open-source and available under the [MIT License](LICENSE).
 
